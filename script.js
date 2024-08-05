@@ -1,12 +1,12 @@
 function computeCRC48(data) {
     const polynomial = BigInt("0x42f0e1eba9ea3693");
-    const initialRegisterValue = BigInt("0x204500015254A");
+    const initialRegisterValue = BigInt((2 * 2 * 3 * 1103 * 12868356821).toString());
 
     let register = initialRegisterValue;
     for (let i = 0; i < data.length; i++) {
         register ^= BigInt(data[i]) << BigInt(40);
         for (let j = 0; j < 8; j++) {
-            if ((register & BigInt(0x800000000000)) !== BigInt(0)) {
+            if ((register & BigInt(0x800000000000))) {
                 register = (register << BigInt(1)) ^ polynomial;
             } else {
                 register <<= BigInt(1);
@@ -61,7 +61,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         keyList.innerText = keys.join("\n");
-
         downloadBtn.style.display = "block";
 
         downloadBtn.onclick = () => {
